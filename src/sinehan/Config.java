@@ -168,7 +168,60 @@ public void deleteRecord(String sql, Object... values) {
     }
     
     
-    
+    public void viewApplicantss(String query, String[] header, String[] columns, int applicantId) {
+    try (Connection conn = this.connectDB();  // Use the configuration to get the connection
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        // Set the applicantId parameter for filtering
+        stmt.setInt(1, applicantId);
+        
+        ResultSet rs = stmt.executeQuery();
+
+        // Print header
+        for (String h : header) {
+            System.out.print(h + "     \t| ");  // Added separator
+        }
+        System.out.println();
+        
+        // Print a separator line after the header for better readability
+        System.out.println("------------------------------------------------------------");
+
+        // Print rows
+        while (rs.next()) {
+            for (String col : columns) {
+                // Get column value and print with separator
+                String columnValue = rs.getString(col);
+                System.out.print(columnValue + "          \t| ");  // Added separator after each column
+            }
+            System.out.println();  // Move to the next row
+            
+            // Print a separator line between rows
+            System.out.println("------------------------------------------------------------");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    public double getSingleValues(String sql, Object... params){
+         double result = 0.0;
+         
+         try(Connection conn = this.connectDB();
+             PreparedStatement pst  = conn.prepareStatement(sql)){
+             
+             
+             for(int i = 0; i < params.length; i++){
+                 pst.setObject(i + 1, params[i]);
+             }
+             ResultSet rs = pst.executeQuery();
+             if(rs.next()){
+                 result  = rs.getDouble(1);
+             }
+         }catch(SQLException e ){
+             System.out.println("Erorr retrieving single values: "+e.getMessage());
+         }
+         return  result;
+     }
     
     
     

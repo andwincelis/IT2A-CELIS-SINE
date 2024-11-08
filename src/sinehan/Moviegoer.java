@@ -96,8 +96,22 @@ public class Moviegoer {
              mg.viewGoer();
              String update = "UPDATE Goer SET Gender = ?, Email = ?, Contact_No = ? = WHERE Goer_ID  = ? ";
              
-             System.out.print("Enter Goer ID  to update: ");
-             int goer = sc.nextInt();
+          
+              int goer;
+                while (true) {
+                System.out.print("Enter Goer ID to update: ");
+                if (sc.hasNextInt()) {
+                    goer = sc.nextInt();
+                    if (ci.getSingleValues("SELECT Goer_ID FROM Goer  WHERE Goer_ID = ?", goer) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Goer doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a valid numeric Goer ID.");
+                    sc.next(); 
+                }
+            }
              
              System.out.print("Enter new Gender: ");
              String newgen = sc.next();
@@ -112,9 +126,21 @@ public class Moviegoer {
              mg.viewGoer();
              String delete = "DELETE FROM Goer WHERE Goer_ID = ?";
              
-             System.out.print("Enter Goer ID to delete: ");
-             int del = sc.nextInt();
-             
+              int del;
+                while (true) {
+                System.out.print("Enter Goer ID to delete: ");
+                if (sc.hasNextInt()) {
+                    del = sc.nextInt();
+                    if (ci.getSingleValues("SELECT Goer_ID FROM Goer  WHERE Goer_ID = ?", del) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Goer doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a valid numeric Goer ID.");
+                    sc.next(); 
+                }
+            }
              ci.deleteRecord(delete, del);
              break;
          case 5:

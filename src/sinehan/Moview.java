@@ -94,9 +94,24 @@ public class Moview {
                  mv.viewMovie();
                  String movieup = "UPDATE Movie SET Movie_Price = ?, Format = ?, Age_Rating = ? WHERE Movie_ID = ? ";
                  
-                 System.out.print("Enter Movie ID to update: ");
-                 int movie = sc.nextInt();
+               
                  
+                  
+        int movie;
+                while (true) {
+                System.out.print("Enter Movie ID yo update: ");
+                if (sc.hasNextInt()) {
+                    movie = sc.nextInt();
+                    if (ci.getSingleValues("SELECT Movie_ID FROM Movie  WHERE Movie_ID = ?", movie) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Movie doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a valid numeric Movie ID.");
+                    sc.next(); 
+                }
+            }
                  System.out.print("Enter new Movie Price: ");
                  double pr = sc.nextDouble();
                  
@@ -113,9 +128,23 @@ public class Moview {
                  
                  String movidel = "DELETE FROM Movie WHERE Movie_ID = ? ";
                  
-                 System.out.print("Enter Movie ID to delete: ");
-                 int idel = sc.nextInt();
+                
                  
+                   int idel;
+                while (true) {
+                System.out.print("Enter Movie ID to delete: ");
+                if (sc.hasNextInt()) {
+                    idel = sc.nextInt();
+                    if (ci.getSingleValues("SELECT Movie_ID FROM Movie  WHERE Movie_ID = ?", idel) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Movie doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a valid numeric Movie ID.");
+                    sc.next(); 
+                }
+            }
                  ci.deleteRecord(movidel, idel);
                  break;
              case 5:

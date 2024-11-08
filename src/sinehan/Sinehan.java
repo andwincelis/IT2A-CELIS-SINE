@@ -18,6 +18,7 @@ public class Sinehan {
           boolean exit = true;
           
           do{
+              
               System.out.println("");
         System.out.println("1. MovieGoer");
         System.out.println("2. Movie");
@@ -52,7 +53,7 @@ public class Sinehan {
                 break;
             case 3:
                 MovieRecords mr = new MovieRecords();
-                mr.viewRecords();
+                mr.mainSine();
                 break;
             case 4:
                 System.out.print("Do you want to log out? Yes or No: ");
